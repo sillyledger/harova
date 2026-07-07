@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import Nav from './nav'
 
 export const metadata: Metadata = {
   title: 'Harova — Find the right tools for your stack',
@@ -19,7 +20,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Nav />
+        {children}
+      </body>
     </html>
   )
 }
