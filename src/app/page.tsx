@@ -65,7 +65,7 @@ function TypeBadge({ type }: { type: string }) {
 
 function Card({ entry }: { entry: DirectoryEntry }) {
   return (
-    <a
+    
       className="card"
       href={entry.url || '#'}
       target="_blank"
@@ -115,17 +115,6 @@ export default function Home() {
 
   return (
     <div className="container">
-      <nav>
-        <a href="/" className="logo">
-          harova<span className="logo-dot"></span>
-        </a>
-        <div className="nav-links">
-          <a href="/">Browse</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-        </div>
-      </nav>
-
       <div className="hero">
         <h1>Find the right tools for your stack</h1>
         <p>
