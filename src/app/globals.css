@@ -25,7 +25,8 @@ body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -71,7 +72,7 @@ nav {
 }
 
 .nav-links a {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-secondary);
   transition: color 0.15s;
 }
@@ -95,7 +96,7 @@ nav {
 }
 
 .hero p {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--text-secondary);
   max-width: 420px;
 }
@@ -126,7 +127,7 @@ nav {
   outline: none;
   background: transparent;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text);
   width: 100%;
 }
@@ -144,7 +145,7 @@ nav {
 
 .filter-pill {
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   padding: 7px 16px;
   border-radius: 100px;
@@ -167,14 +168,14 @@ nav {
 }
 
 .count {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 8px;
 }
 
 .section-label {
   font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.8px;
   text-transform: uppercase;
@@ -237,13 +238,13 @@ nav {
 }
 
 .card-name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.2px;
 }
 
 .card-oneliner {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-secondary);
   line-height: 1.5;
   margin-bottom: 12px;
@@ -258,7 +259,7 @@ nav {
 }
 
 .category-tag {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-muted);
   padding: 3px 10px;
   background: var(--surface-muted);
@@ -267,7 +268,7 @@ nav {
 }
 
 .type-badge {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -296,12 +297,12 @@ footer {
 }
 
 footer span {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-muted);
 }
 
 footer a {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--accent);
   font-weight: 500;
 }
