@@ -120,9 +120,9 @@ export default function Home() {
           harova<span className="logo-dot"></span>
         </a>
         <div className="nav-links">
-          <a href="#">Browse</a>
-          <a href="#">Categories</a>
-          <a href="#">About</a>
+          <a href="/">Browse</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
         </div>
       </nav>
 
@@ -191,8 +191,14 @@ export default function Home() {
       </div>
 
       <footer>
-        <span>harova — a Ryoka project</span>
-        <a href="#">Submit a tool →</a>
+        <div className="footer-links">
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/affiliate-disclosure">Affiliate Disclosure</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+        <span>Harova — a Ryoka project</span>
       </footer>
     </div>
   )
