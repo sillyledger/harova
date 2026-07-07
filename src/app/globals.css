@@ -260,9 +260,10 @@ nav {
 
 .category-tag {
   font-size: 13px;
-  color: var(--text-muted);
-  padding: 3px 10px;
+  color: var(--text-secondary);
+  padding: 4px 12px;
   background: var(--surface-muted);
+  border: 1px solid var(--border);
   border-radius: 100px;
   white-space: nowrap;
 }
