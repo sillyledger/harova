@@ -64,12 +64,13 @@ function TypeBadge({ type }: { type: string }) {
 }
 
 function Card({ entry }: { entry: DirectoryEntry }) {
-return (
-    
+  return (
+    <div
       className="card"
-      href={entry.url || '#'}
-      target="_blank"
-      rel="noopener noreferrer"
+      role="link"
+      tabIndex={0}
+      onClick={() => window.open(entry.url || '#', '_blank', 'noopener,noreferrer')}
+      style={{ cursor: 'pointer' }}
     >
       <div className="card-header">
         <Favicon url={entry.url} name={entry.name} />
@@ -80,7 +81,7 @@ return (
         <span className="category-tag">{entry.category || ''}</span>
         <TypeBadge type={entry.type} />
       </div>
-    </a>
+    </div>
   )
 }
 
