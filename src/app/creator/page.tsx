@@ -14,8 +14,7 @@ const personSchema = {
   '@type': 'Person',
   name: 'Pieter Borremans',
   url: 'https://harova.xyz/creator',
-  // TODO: replace with a hosted headshot URL (e.g. your pieter.tw photo)
-  image: 'https://pieter.tw/REPLACE-WITH-PHOTO.jpg',
+  image: 'https://www.indiehacker.blog/Pieter-Borremans-founder.jpeg',
   jobTitle: 'Founder',
   description:
     'Founder of Ryoka and maker of Sorano, Aegos Intel, TWO Docs, Kira, Kiroka, and other micro-SaaS software. Writer and blogger on Indiehacker.blog, based between Taiwan and London.',
