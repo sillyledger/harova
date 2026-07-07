@@ -64,7 +64,7 @@ function TypeBadge({ type }: { type: string }) {
 }
 
 function Card({ entry }: { entry: DirectoryEntry }) {
-  return (
+return (
     
       className="card"
       href={entry.url || '#'}
