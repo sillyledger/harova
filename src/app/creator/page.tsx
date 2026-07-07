@@ -47,6 +47,14 @@ export default function CreatorPage() {
 
       <a href="/" className="back-link">← Back to directory</a>
 
+      <img
+        src="https://www.indiehacker.blog/Pieter-Borremans-founder.jpeg"
+        alt="Pieter Borremans, founder of Ryoka and creator of Harova"
+        className="creator-photo"
+        width={96}
+        height={96}
+      />
+
       <h1>About the Creator</h1>
       <p className="page-subtitle">Harova is built and maintained by Pieter Borremans.</p>
 
