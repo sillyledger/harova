@@ -329,3 +329,69 @@ footer a:hover {
     gap: 16px;
   }
 }
+/* ── Content pages (About, legal, etc.) ── */
+.page {
+  padding: 48px 0 24px;
+  max-width: 640px;
+}
+
+.page .back-link {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  display: inline-block;
+}
+
+.page .back-link:hover {
+  color: var(--text);
+}
+
+.page h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.page .page-subtitle {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+}
+
+.page h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  margin: 32px 0 10px;
+}
+
+.page p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.page a.inline {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.page a.inline:hover {
+  text-decoration: underline;
+}
+
+.page ul {
+  margin: 0 0 14px 20px;
+}
+
+.page li {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
