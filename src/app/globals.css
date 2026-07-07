@@ -395,3 +395,26 @@ footer a:hover {
   line-height: 1.7;
   margin-bottom: 6px;
 }
+/* ── Footer links ── */
+footer {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+  text-decoration: none;
+}
