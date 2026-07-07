@@ -418,3 +418,13 @@ footer {
   color: var(--text);
   text-decoration: none;
 }
+/* ── Creator photo ── */
+.creator-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  display: block;
+  margin: 8px 0 20px;
+}
