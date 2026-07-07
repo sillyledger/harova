@@ -1,0 +1,35 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #FAFAF8;
+  --card-bg: #FFFFFF;
+  --text: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  --text-muted: #9B9B9B;
+  --border: #E8E8E4;
+  --border-hover: #D0D0CC;
+  --accent: #2563EB;
+  --accent-bg: #EEF2FF;
+  --affiliate-text: #92400E;
+  --affiliate-bg: #FEF3C7;
+  --pill-active-bg: #1A1A1A;
+  --pill-active-text: #FFFFFF;
+  --surface-muted: #F3F3F0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
