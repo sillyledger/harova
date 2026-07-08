@@ -21,6 +21,7 @@ interface DirectoryEntry {
   url: string
   type: 'ryoka' | 'affiliate' | 'neutral'
   show_on_directory: boolean
+  slug: string
 }
 
 function getDomain(url: string): string | null {
@@ -65,13 +66,7 @@ function TypeBadge({ type }: { type: string }) {
 
 function Card({ entry }: { entry: DirectoryEntry }) {
   return (
-    <div
-      className="card"
-      role="link"
-      tabIndex={0}
-      onClick={() => window.open(entry.url || '#', '_blank', 'noopener,noreferrer')}
-      style={{ cursor: 'pointer' }}
-    >
+    <a className="card" href={`/tool/${entry.slug}`}>
       <div className="card-header">
         <Favicon url={entry.url} name={entry.name} />
         <div className="card-name">{entry.name}</div>
@@ -81,7 +76,7 @@ function Card({ entry }: { entry: DirectoryEntry }) {
         <span className="category-tag">{entry.category || ''}</span>
         <TypeBadge type={entry.type} />
       </div>
-    </div>
+    </a>
   )
 }
 
