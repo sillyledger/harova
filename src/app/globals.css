@@ -28,6 +28,11 @@ body {
   font-size: 16px;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg {
+  max-width: 100%;
 }
 
 a {
@@ -524,16 +529,63 @@ footer {
 }
 
 @media (max-width: 700px) {
+  .container {
+    padding: 0 20px;
+  }
+  .nav-inner {
+    padding: 14px 20px;
+  }
   .grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .hero {
+    padding: 36px 0 28px;
   }
   .hero h1 {
     font-size: 26px;
   }
+  .page {
+    padding: 36px 0 24px;
+  }
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+  .nav-inner {
+    padding: 12px 16px;
+  }
   .grid {
     grid-template-columns: 1fr;
+  }
+  .hero {
+    padding: 28px 0 22px;
+  }
+  .hero h1 {
+    font-size: 24px;
+    max-width: 100%;
+  }
+  .hero p {
+    font-size: 15px;
+    max-width: 100%;
+  }
+  .page {
+    padding: 28px 0 20px;
+  }
+  .page h1 {
+    font-size: 24px;
+  }
+  .page h2 {
+    font-size: 17px;
+  }
+  .page .page-subtitle {
+    margin-bottom: 28px;
+  }
+  .section-label {
+    font-size: 11px;
+  }
+  footer {
+    margin-top: 36px;
   }
 }
