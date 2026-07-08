@@ -89,7 +89,11 @@ function Card({ entry }: { entry: DirectoryEntry }) {
           }}
         >
           {cats.map((c) => (
-            <span key={c} className="category-tag">
+            <span
+              key={c}
+              className="category-tag"
+              style={{ fontSize: '11px', padding: '3px 9px' }}
+            >
               {c}
             </span>
           ))}
