@@ -320,7 +320,8 @@ footer {
 
 /* â”€â”€ Content pages (About, legal, etc.) â”€â”€ */
 .page {
-  padding: 48px 0 24px;
+  padding-top: 48px;
+  padding-bottom: 24px;
   max-width: 640px;
 }
 
@@ -545,7 +546,8 @@ footer {
     font-size: 26px;
   }
   .page {
-    padding: 36px 0 24px;
+    padding-top: 36px;
+    padding-bottom: 24px;
   }
 }
 
@@ -571,7 +573,8 @@ footer {
     max-width: 100%;
   }
   .page {
-    padding: 28px 0 20px;
+    padding-top: 28px;
+    padding-bottom: 20px;
   }
   .page h1 {
     font-size: 24px;
