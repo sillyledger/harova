@@ -17,6 +17,7 @@ interface DirectoryEntry {
   id: string
   name: string
   category: string
+  categories: string[] | null
   one_liner: string
   url: string
   type: 'ryoka' | 'affiliate' | 'neutral'
@@ -65,6 +66,12 @@ function TypeBadge({ type }: { type: string }) {
 }
 
 function Card({ entry }: { entry: DirectoryEntry }) {
+  const cats =
+    entry.categories && entry.categories.length > 0
+      ? entry.categories
+      : entry.category
+      ? [entry.category]
+      : []
   return (
     <a className="card" href={`/tool/${entry.slug}`}>
       <div className="card-header">
@@ -73,7 +80,20 @@ function Card({ entry }: { entry: DirectoryEntry }) {
       </div>
       <div className="card-oneliner">{entry.one_liner || ''}</div>
       <div className="card-footer">
-        <span className="category-tag">{entry.category || ''}</span>
+        <div
+          style={{
+            display: 'flex',
+            gap: '6px',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
+          {cats.map((c) => (
+            <span key={c} className="category-tag">
+              {c}
+            </span>
+          ))}
+        </div>
         <TypeBadge type={entry.type} />
       </div>
     </a>
@@ -97,8 +117,14 @@ export default function Home() {
   }, [])
 
   const filtered = entries.filter((e) => {
+    const cats =
+      e.categories && e.categories.length > 0
+        ? e.categories
+        : e.category
+        ? [e.category]
+        : []
     const matchesCategory =
-      activeCategory === 'all' || e.category === activeCategory
+      activeCategory === 'all' || cats.includes(activeCategory)
     const matchesSearch =
       !searchTerm ||
       e.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
