@@ -10,6 +10,7 @@ interface DirectoryEntry {
   id: string
   name: string
   category: string
+  categories: string[] | null
   one_liner: string
   url: string
   type: 'ryoka' | 'affiliate' | 'neutral'
@@ -87,6 +88,12 @@ function TypeBadge({ type }: { type: string }) {
 function SimilarCard({ entry }: { entry: DirectoryEntry }) {
   const src = faviconSrc(entry.url)
   const letter = entry.name.charAt(0).toUpperCase()
+  const cats =
+    entry.categories && entry.categories.length > 0
+      ? entry.categories
+      : entry.category
+      ? [entry.category]
+      : []
   return (
     <a className="card" href={`/tool/${entry.slug}`}>
       <div className="card-header">
@@ -101,7 +108,20 @@ function SimilarCard({ entry }: { entry: DirectoryEntry }) {
       </div>
       <div className="card-oneliner">{entry.one_liner || ''}</div>
       <div className="card-footer">
-        <span className="category-tag">{entry.category || ''}</span>
+        <div
+          style={{
+            display: 'flex',
+            gap: '6px',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+          }}
+        >
+          {cats.map((c) => (
+            <span key={c} className="category-tag">
+              {c}
+            </span>
+          ))}
+        </div>
         <TypeBadge type={entry.type} />
       </div>
     </a>
@@ -123,12 +143,24 @@ export default async function ToolPage({
   const src = faviconSrc(entry.url)
   const letter = entry.name.charAt(0).toUpperCase()
 
+  const cats =
+    entry.categories && entry.categories.length > 0
+      ? entry.categories
+      : entry.category
+      ? [entry.category]
+      : []
+
   const similar = entries
-    .filter(
-      (e) =>
-        e.slug !== entry.slug &&
-        e.category === entry.category
-    )
+    .filter((e) => {
+      if (e.slug === entry.slug) return false
+      const eCats =
+        e.categories && e.categories.length > 0
+          ? e.categories
+          : e.category
+          ? [e.category]
+          : []
+      return eCats.some((c) => cats.includes(c))
+    })
     .slice(0, 6)
 
   const rel =
@@ -200,7 +232,11 @@ export default async function ToolPage({
             flexWrap: 'wrap',
           }}
         >
-          <span className="category-tag">{entry.category || ''}</span>
+          {cats.map((c) => (
+            <span key={c} className="category-tag">
+              {c}
+            </span>
+          ))}
           <TypeBadge type={entry.type} />
         </div>
 
