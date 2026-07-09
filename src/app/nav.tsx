@@ -26,7 +26,7 @@ export default function Nav() {
         </div>
 
         <div className="nav-cta">
-          <a href="#" className="btn-secondary">Submit Tool</a>
+          <a href="/submit" className="btn-secondary">Submit Tool</a>
           <a href="/contact" className="btn-primary">Contact</a>
         </div>
 
@@ -41,7 +41,7 @@ export default function Nav() {
           <a href="#">Categories</a>
           <a href="/about">About</a>
           <a href="/creator">Creator</a>
-          <a href="#" className="btn-secondary">Submit Tool</a>
+          <a href="submit" className="btn-secondary">Submit Tool</a>
           <a href="/contact" className="btn-primary">Contact</a>
         </div>
       )}
