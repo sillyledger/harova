@@ -59,7 +59,7 @@ export default function Favicon({
 
   const src =
     stage === 'google'
-      ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
+      ? `/api/favicon?domain=${encodeURIComponent(domain ?? '')}`
       : stage === 'clearbit'
       ? `https://logo.clearbit.com/${domain}?size=128`
       : null
