@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Favicon from './components/Favicon'
 
 const API_URL = 'https://client.ryoka.xyz/api/public/directory'
 
@@ -23,36 +24,6 @@ interface DirectoryEntry {
   type: 'ryoka' | 'affiliate' | 'neutral'
   show_on_directory: boolean
   slug: string
-}
-
-function getDomain(url: string): string | null {
-  if (!url) return null
-  try {
-    return new URL(url.startsWith('http') ? url : 'https://' + url).hostname
-  } catch {
-    return null
-  }
-}
-
-function Favicon({ url, name }: { url: string; name: string }) {
-  const [imgFailed, setImgFailed] = useState(false)
-  const domain = getDomain(url)
-  const letter = name.charAt(0).toUpperCase()
-
-  return (
-    <div className="favicon">
-      {domain && !imgFailed && (
-        <img
-          src={`https://www.google.com/s2/favicons?domain=${domain}&sz=64`}
-          alt=""
-          onError={() => setImgFailed(true)}
-        />
-      )}
-      {(!domain || imgFailed) && (
-        <span className="favicon-letter">{letter}</span>
-      )}
-    </div>
-  )
 }
 
 function TypeBadge({ type }: { type: string }) {
