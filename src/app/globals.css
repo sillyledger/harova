@@ -592,3 +592,94 @@ footer {
     margin-top: 36px;
   }
 }
+
+/* -- Submit form -- */
+.submit-form {
+  margin-top: 8px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.form-hint {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.form-input {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-input:focus {
+  border-color: var(--accent);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.form-pill {
+  background: var(--card-bg);
+}
+
+.form-pill:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.primary-tag {
+  color: var(--pill-active-text);
+  opacity: 0.75;
+  font-weight: 400;
+}
+
+.form-error {
+  font-size: 14px;
+  color: var(--affiliate-text);
+  background: var(--affiliate-bg);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}
+
+.form-submit {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+}
