@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Favicon from '../../components/Favicon'
 
 const API_URL = 'https://client.ryoka.xyz/api/public/directory'
 const SITE_URL = 'https://harova.xyz'
@@ -28,22 +29,6 @@ async function getEntries(): Promise<DirectoryEntry[]> {
   } catch {
     return []
   }
-}
-
-function getDomain(url: string): string | null {
-  if (!url) return null
-  try {
-    return new URL(url.startsWith('http') ? url : 'https://' + url).hostname
-  } catch {
-    return null
-  }
-}
-
-function faviconSrc(url: string): string | null {
-  const domain = getDomain(url)
-  return domain
-    ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64`
-    : null
 }
 
 export async function generateMetadata({
@@ -86,8 +71,6 @@ function TypeBadge({ type }: { type: string }) {
 }
 
 function SimilarCard({ entry }: { entry: DirectoryEntry }) {
-  const src = faviconSrc(entry.url)
-  const letter = entry.name.charAt(0).toUpperCase()
   const cats =
     entry.categories && entry.categories.length > 0
       ? entry.categories
@@ -97,13 +80,7 @@ function SimilarCard({ entry }: { entry: DirectoryEntry }) {
   return (
     <a className="card" href={`/tool/${entry.slug}`}>
       <div className="card-header">
-        <div className="favicon">
-          {src ? (
-            <img src={src} alt="" />
-          ) : (
-            <span className="favicon-letter">{letter}</span>
-          )}
-        </div>
+        <Favicon url={entry.url} name={entry.name} />
         <div className="card-name">{entry.name}</div>
       </div>
       <div className="card-oneliner">{entry.one_liner || ''}</div>
@@ -139,9 +116,6 @@ export default async function ToolPage({
   if (!entry) {
     notFound()
   }
-
-  const src = faviconSrc(entry.url)
-  const letter = entry.name.charAt(0).toUpperCase()
 
   const cats =
     entry.categories && entry.categories.length > 0
@@ -197,25 +171,7 @@ export default async function ToolPage({
             marginBottom: '16px',
           }}
         >
-          <div
-            className="favicon"
-            style={{ width: '52px', height: '52px', borderRadius: '12px' }}
-          >
-            {src ? (
-              <img
-                src={src}
-                alt=""
-                style={{ width: '28px', height: '28px' }}
-              />
-            ) : (
-              <span
-                className="favicon-letter"
-                style={{ fontSize: '20px' }}
-              >
-                {letter}
-              </span>
-            )}
-          </div>
+          <Favicon url={entry.url} name={entry.name} size={52} />
           <h1 style={{ marginBottom: 0 }}>{entry.name}</h1>
         </div>
 
