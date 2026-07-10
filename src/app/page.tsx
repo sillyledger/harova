@@ -1,18 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Favicon from './components/Favicon'
 
 const API_URL = 'https://client.ryoka.xyz/api/public/directory'
 
-const CATEGORIES = [
-  { label: 'All', value: 'all' },
-  { label: 'IDE / CLI', value: 'IDE/CLI' },
-  { label: 'Note taking', value: 'Note Taking' },
-  { label: 'Productivity', value: 'Productivity' },
-  { label: 'Streaming', value: 'Streaming Service' },
-  { label: 'Web hosting', value: 'Web Hosting' },
-]
+// Only for categories that want a shorter/friendlier label than their raw
+// value. Anything not listed here just displays as its raw category string —
+// so a brand-new category always shows up, it just won't be "prettified"
+// until someone adds an override for it.
+const LABEL_OVERRIDES: Record<string, string> = {
+  'IDE/CLI': 'IDE / CLI',
+  'Note Taking': 'Note taking',
+  'Streaming Service': 'Streaming',
+  'Web Hosting': 'Web hosting',
+}
 
 interface DirectoryEntry {
   id: string
@@ -91,6 +93,25 @@ export default function Home() {
       })
   }, [])
 
+  const categoryOptions = useMemo(() => {
+    const set = new Set<string>()
+    entries.forEach((e) => {
+      const cats =
+        e.categories && e.categories.length > 0
+          ? e.categories
+          : e.category
+          ? [e.category]
+          : []
+      cats.forEach((c) => set.add(c))
+    })
+    return [
+      { label: 'All', value: 'all' },
+      ...Array.from(set)
+        .sort()
+        .map((c) => ({ label: LABEL_OVERRIDES[c] || c, value: c })),
+    ]
+  }, [entries])
+
   const filtered = entries.filter((e) => {
     const cats =
       e.categories && e.categories.length > 0
@@ -145,7 +166,7 @@ export default function Home() {
       </div>
 
       <div className="filters">
-        {CATEGORIES.map((cat) => (
+        {categoryOptions.map((cat) => (
           <button
             key={cat.value}
             className={`filter-pill ${activeCategory === cat.value ? 'active' : ''}`}
