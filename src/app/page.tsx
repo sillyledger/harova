@@ -38,6 +38,8 @@ function TypeBadge({ type }: { type: string }) {
   return null
 }
 
+const MAX_TAGS = 2
+
 function Card({ entry }: { entry: DirectoryEntry }) {
   const cats =
     entry.categories && entry.categories.length > 0
@@ -45,8 +47,35 @@ function Card({ entry }: { entry: DirectoryEntry }) {
       : entry.category
       ? [entry.category]
       : []
+
+  const visibleCats = cats.slice(0, MAX_TAGS)
+  const hiddenCats = cats.slice(MAX_TAGS)
+
+  const externalRel =
+    entry.type === 'affiliate'
+      ? 'sponsored noopener noreferrer'
+      : 'noopener noreferrer'
+
   return (
-    <a className="card" href={`/tool/${entry.slug}`}>
+    <div className="card">
+      <a
+        className="card-link-overlay"
+        href={`/tool/${entry.slug}`}
+        aria-label={entry.name}
+      />
+
+      {entry.url && (
+        <a
+          className="card-external"
+          href={entry.url}
+          target="_blank"
+          rel={externalRel}
+          aria-label={`Visit ${entry.name} website`}
+        >
+          ↗
+        </a>
+      )}
+
       <div className="card-header">
         <Favicon url={entry.url} name={entry.name} />
         <div className="card-name">{entry.name}</div>
@@ -61,7 +90,7 @@ function Card({ entry }: { entry: DirectoryEntry }) {
             alignItems: 'center',
           }}
         >
-          {cats.map((c) => (
+          {visibleCats.map((c) => (
             <span
               key={c}
               className="category-tag"
@@ -70,10 +99,19 @@ function Card({ entry }: { entry: DirectoryEntry }) {
               {c}
             </span>
           ))}
+          {hiddenCats.length > 0 && (
+            <span
+              className="category-tag card-tag-more"
+              style={{ fontSize: '11px', padding: '3px 9px' }}
+              title={hiddenCats.join(', ')}
+            >
+              +{hiddenCats.length}
+            </span>
+          )}
         </div>
         <TypeBadge type={entry.type} />
       </div>
-    </a>
+    </div>
   )
 }
 
@@ -133,6 +171,43 @@ export default function Home() {
 
   return (
     <div className="container">
+      <style>{`
+        .card { position: relative; }
+        .card-header { padding-right: 30px; }
+        .card-link-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          border-radius: inherit;
+        }
+        .card-external {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          z-index: 2;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 26px;
+          height: 26px;
+          border-radius: 7px;
+          color: var(--text-muted);
+          font-size: 13px;
+          line-height: 1;
+          text-decoration: none;
+          border: 1px solid transparent;
+          transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+        }
+        .card-external:hover {
+          color: var(--accent);
+          background: var(--bg);
+          border-color: var(--border);
+        }
+        .card-tag-more {
+          color: var(--text-muted);
+        }
+      `}</style>
+
       <div className="hero">
         <h1>Find the right tools for your stack</h1>
         <p>
