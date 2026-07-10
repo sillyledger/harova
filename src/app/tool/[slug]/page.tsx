@@ -13,6 +13,7 @@ interface DirectoryEntry {
   category: string
   categories: string[] | null
   one_liner: string
+  long_description: string | null
   url: string
   type: 'ryoka' | 'affiliate' | 'neutral'
   show_on_directory: boolean
@@ -146,7 +147,7 @@ export default async function ToolPage({
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: entry.name,
-    description: entry.one_liner || undefined,
+    description: entry.long_description || entry.one_liner || undefined,
     applicationCategory: entry.category || undefined,
     url: entry.url || undefined,
   }
@@ -206,6 +207,23 @@ export default async function ToolPage({
           >
             Visit website ↗
           </a>
+        )}
+
+        {entry.long_description && (
+          <>
+            <div className="section-label" style={{ marginTop: '48px' }}>
+              About {entry.name}
+            </div>
+            <div style={{ maxWidth: '600px' }}>
+              {entry.long_description
+                .split(/\n+/)
+                .map((para) => para.trim())
+                .filter(Boolean)
+                .map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+            </div>
+          </>
         )}
 
         {similar.length > 0 && (
