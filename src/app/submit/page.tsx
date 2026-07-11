@@ -151,7 +151,10 @@ export default function SubmitPage() {
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="url">Website URL</label>
+          <label className="form-label" htmlFor="url">
+            Website URL
+            <span className="form-hint">include https://</span>
+          </label>
           <input
             id="url"
             className="form-input"
