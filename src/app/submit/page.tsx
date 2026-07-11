@@ -14,6 +14,7 @@ const CATEGORIES = [
 ]
 
 const SHORT_DESCRIPTION_LIMIT = 100
+const SUBMIT_URL = 'https://client.ryoka.xyz/api/public/submit'
 
 export default function SubmitPage() {
   const [name, setName] = useState('')
@@ -23,6 +24,7 @@ export default function SubmitPage() {
   // Order matters: the first category selected is the primary one.
   const [categories, setCategories] = useState<string[]>([])
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
   function toggleCategory(cat: string) {
@@ -37,7 +39,7 @@ export default function SubmitPage() {
     })
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
 
@@ -50,8 +52,33 @@ export default function SubmitPage() {
       return
     }
 
-    // Mockup only — not wired to a backend yet.
-    setSubmitted(true)
+    setSubmitting(true)
+    try {
+      const res = await fetch(SUBMIT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          one_liner: shortDescription.trim(),
+          long_description: longDescription.trim(),
+          url: url.trim(),
+          categories,
+        }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        setError(data?.error || 'Something went wrong. Please try again.')
+        setSubmitting(false)
+        return
+      }
+
+      setSubmitted(true)
+    } catch {
+      setError('Could not reach the server. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -165,8 +192,8 @@ export default function SubmitPage() {
 
         {error && <p className="form-error">{error}</p>}
 
-        <button type="submit" className="btn-primary form-submit">
-          Submit for review
+        <button type="submit" className="btn-primary form-submit" disabled={submitting}>
+          {submitting ? 'Submitting...' : 'Submit for review'}
         </button>
       </form>
     </div>
