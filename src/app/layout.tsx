@@ -20,6 +20,10 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://unpkg.com/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <Nav />

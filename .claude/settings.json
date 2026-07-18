@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"^a \\\\|^a,\\\\|^a{\\\\|^a {\" -A 5 /Users/vayra/harova-1/src/app/globals.css)",
+      "Bash(npx next *)",
+      "Bash(npm install *)",
+      "Bash(node -e \"console.log\\(require\\('/Users/vayra/harova-1/node_modules/next/package.json'\\).version\\)\")",
+      "Bash(curl -s http://localhost:3411/category/ide-cli -o /tmp/cat.html -w \"%{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(grep -o 'class=\"filter-pill[^\"]*\"' /tmp/cat.html | sort | uniq -c; echo \"---\"; grep -o 'category-tag\"[^>]*>[^<]*' /tmp/cat.html | head -5)",
+      "Bash(pkill -f \"next start -p 3411\")",
+      "Bash(git commit -m ' *)",
+      "Bash(git -C /Users/vayra/harova-1 log --all --oneline)"
+    ]
+  }
+}

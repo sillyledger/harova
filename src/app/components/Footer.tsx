@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="footer-col">
           <div className="footer-col-title">Harova</div>
           <a href="/">Browse</a>
-          <a href="/">Categories</a>
+          <a href="/categories">Categories</a>
           <a href="/submit">Submit a tool</a>
           <a href="/contact">Contact</a>
         </div>
@@ -18,33 +18,21 @@ export default function Footer() {
           <a href="/affiliate-disclosure">Affiliate disclosure</a>
         </div>
         <div className="footer-col">
-          <div className="footer-col-title">Ryoka projects</div>
-          {/* TODO: real URL */}
-          <a href="#" target="_blank" rel="noopener noreferrer">
+          <div className="footer-col-title">Built by Ryoka</div>
+          <a href="https://www.two.so" target="_blank" rel="noopener noreferrer">
             TWO Docs
           </a>
-          {/* TODO: real URL */}
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            Sorano
+          <a href="https://www.kiroka.xyz" target="_blank" rel="noopener noreferrer">
+            Kiroka Free Subscription Tracker
           </a>
-          {/* TODO: real URL */}
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            Aegos Intel
+          <a href="https://www.liyo.dev" target="_blank" rel="noopener noreferrer">
+            Liyo Developer Shelf
           </a>
-          {/* TODO: real URL */}
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            Kira
+          <a href="https://www.sorano.space" target="_blank" rel="noopener noreferrer">
+            Sorano Public Roadmap
           </a>
-          {/* TODO: real URL */}
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            Kiroka
-          </a>
-          <a
-            href="https://ryoka.xyz"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Ryoka.xyz
+          <a href="https://www.indiehacker.blog" target="_blank" rel="noopener noreferrer">
+            Indie Hacker Blog
           </a>
         </div>
       </div>

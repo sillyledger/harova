@@ -82,7 +82,7 @@ export default function Nav() {
                     ))}
                   </div>
                   <a
-                    href="/"
+                    href="/categories"
                     className="nav-mega-all"
                     onClick={() => setCategoriesOpen(false)}
                   >
@@ -109,7 +109,7 @@ export default function Nav() {
           {categories.map((cat) => (
             <a key={cat.slug} href={`/category/${cat.slug}`} className="nav-mobile-category">{cat.label}</a>
           ))}
-          <a href="/">All Categories</a>
+          <a href="/categories">All Categories</a>
           <a href="/about">About</a>
           <a href="/creator">Creator</a>
           <a href="/submit" className="btn-secondary">Submit Tool</a>

@@ -20,3 +20,25 @@ export function categorySlug(category: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
+
+// Only for categories with a mapped icon. Anything not listed here falls
+// back to a generic icon via categoryIcon() — so a brand-new category still
+// renders something sensible instead of a blank/broken icon.
+export const ICON_MAP: Record<string, string> = {
+  'Cloud Infrastructure': 'ti-cloud',
+  'Cloud Storage': 'ti-database',
+  'Domain Registrar': 'ti-world',
+  FinTech: 'ti-credit-card',
+  'Fitness & Health': 'ti-heartbeat',
+  'IDE/CLI': 'ti-terminal-2',
+  Lifestyle: 'ti-sparkles',
+  'Note Taking': 'ti-notes',
+  'Payment Processing': 'ti-cash',
+  Productivity: 'ti-bolt',
+  'Web Hosting': 'ti-server-2',
+  WordPress: 'ti-brand-wordpress',
+}
+
+export function categoryIcon(category: string): string {
+  return ICON_MAP[category] || 'ti-apps'
+}
