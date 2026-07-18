@@ -1,23 +1,43 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { API_URL, DirectoryEntry, entryCategories } from './lib/directory'
+import { categoryLabel, categorySlug } from './lib/categories'
 
-const FEATURED_CATEGORIES = [
-  'IDE/CLI',
-  'Cloud Storage',
-  'Note Taking',
-  'Productivity',
-  'Streaming Service',
-  'Web Hosting',
-]
+interface NavCategory {
+  label: string
+  slug: string
+}
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
   const [categoriesOpen, setCategoriesOpen] = useState(false)
+  const [categories, setCategories] = useState<NavCategory[]>([])
   const categoriesRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const active = (href: string) =>
     href === '/' ? pathname === '/' : pathname.startsWith(href)
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then((res) => res.json())
+      .then((data: DirectoryEntry[]) => {
+        const set = new Set<string>()
+        data
+          .filter((e) => e.show_on_directory)
+          .forEach((e) => {
+            entryCategories(e).forEach((c) => set.add(c))
+          })
+        setCategories(
+          Array.from(set)
+            .sort()
+            .map((c) => ({ label: categoryLabel(c), slug: categorySlug(c) }))
+        )
+      })
+      .catch(() => {
+        setCategories([])
+      })
+  }, [])
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -51,9 +71,13 @@ export default function Nav() {
               {categoriesOpen && (
                 <div className="nav-mega-menu">
                   <div className="nav-mega-grid">
-                    {FEATURED_CATEGORIES.map((cat) => (
-                      <a key={cat} href="#" onClick={() => setCategoriesOpen(false)}>
-                        {cat}
+                    {categories.map((cat) => (
+                      <a
+                        key={cat.slug}
+                        href={`/category/${cat.slug}`}
+                        onClick={() => setCategoriesOpen(false)}
+                      >
+                        {cat.label}
                       </a>
                     ))}
                   </div>
@@ -82,8 +106,8 @@ export default function Nav() {
       {open && (
         <div className="nav-mobile">
           <a href="/">Browse</a>
-          {FEATURED_CATEGORIES.map((cat) => (
-            <a key={cat} href="#" className="nav-mobile-category">{cat}</a>
+          {categories.map((cat) => (
+            <a key={cat.slug} href={`/category/${cat.slug}`} className="nav-mobile-category">{cat.label}</a>
           ))}
           <a href="/">All Categories</a>
           <a href="/about">About</a>

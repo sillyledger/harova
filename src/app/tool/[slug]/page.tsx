@@ -1,35 +1,23 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Favicon from '../../components/Favicon'
+import ToolCard from '../../components/ToolCard'
+import { getEntries, entryCategories } from '../../lib/directory'
+import { categoryLabel, categorySlug } from '../../lib/categories'
 
-const API_URL = 'https://client.ryoka.xyz/api/public/directory'
 const SITE_URL = 'https://harova.xyz'
 
 export const dynamic = 'force-dynamic'
 
-interface DirectoryEntry {
-  id: string
-  name: string
-  category: string
-  categories: string[] | null
-  one_liner: string
-  long_description: string | null
-  url: string
-  type: 'ryoka' | 'affiliate' | 'neutral'
-  show_on_directory: boolean
-  slug: string
-}
-
-async function getEntries(): Promise<DirectoryEntry[]> {
-  try {
-    const res = await fetch(API_URL, { cache: 'no-store' })
-    if (!res.ok) return []
-    const data = await res.json()
-    if (!Array.isArray(data)) return []
-    return data.filter((e: DirectoryEntry) => e.show_on_directory)
-  } catch {
-    return []
+function TypeBadge({ type }: { type: string }) {
+  if (type === 'ryoka') {
+    return <span className="type-badge type-ryoka">Ryoka</span>
   }
+  if (type === 'affiliate') {
+    return <span className="type-badge type-affiliate">Affiliate</span>
+  }
+  return null
 }
 
 export async function generateMetadata({
@@ -61,88 +49,6 @@ export async function generateMetadata({
   }
 }
 
-function TypeBadge({ type }: { type: string }) {
-  if (type === 'ryoka') {
-    return <span className="type-badge type-ryoka">Ryoka</span>
-  }
-  if (type === 'affiliate') {
-    return <span className="type-badge type-affiliate">Affiliate</span>
-  }
-  return null
-}
-
-const MAX_TAGS = 2
-
-function SimilarCard({ entry }: { entry: DirectoryEntry }) {
-  const cats =
-    entry.categories && entry.categories.length > 0
-      ? entry.categories
-      : entry.category
-      ? [entry.category]
-      : []
-
-  const visibleCats = cats.slice(0, MAX_TAGS)
-  const hiddenCats = cats.slice(MAX_TAGS)
-
-  const externalRel =
-    entry.type === 'affiliate'
-      ? 'sponsored noopener noreferrer'
-      : 'noopener noreferrer'
-
-  return (
-    <div className="card">
-      <a
-        className="card-link-overlay"
-        href={`/tool/${entry.slug}`}
-        aria-label={entry.name}
-      />
-
-      {entry.url && (
-        <a
-          className="card-external"
-          href={entry.url}
-          target="_blank"
-          rel={externalRel}
-          aria-label={`Visit ${entry.name} website`}
-        >
-          ↗
-        </a>
-      )}
-
-      <div className="card-header">
-        <Favicon url={entry.url} name={entry.name} />
-        <div className="card-name">{entry.name}</div>
-      </div>
-      <div className="card-oneliner">{entry.one_liner || ''}</div>
-      <div className="card-footer">
-        <div
-          style={{
-            display: 'flex',
-            gap: '6px',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-          }}
-        >
-          {visibleCats.map((c) => (
-            <span key={c} className="category-tag">
-              {c}
-            </span>
-          ))}
-          {hiddenCats.length > 0 && (
-            <span
-              className="category-tag card-tag-more"
-              title={hiddenCats.join(', ')}
-            >
-              +{hiddenCats.length}
-            </span>
-          )}
-        </div>
-        <TypeBadge type={entry.type} />
-      </div>
-    </div>
-  )
-}
-
 export default async function ToolPage({
   params,
 }: {
@@ -155,23 +61,12 @@ export default async function ToolPage({
     notFound()
   }
 
-  const cats =
-    entry.categories && entry.categories.length > 0
-      ? entry.categories
-      : entry.category
-      ? [entry.category]
-      : []
+  const cats = entryCategories(entry)
 
   const similar = entries
     .filter((e) => {
       if (e.slug === entry.slug) return false
-      const eCats =
-        e.categories && e.categories.length > 0
-          ? e.categories
-          : e.category
-          ? [e.category]
-          : []
-      return eCats.some((c) => cats.includes(c))
+      return entryCategories(e).some((c) => cats.includes(c))
     })
     .slice(0, 6)
 
@@ -209,40 +104,6 @@ export default async function ToolPage({
       />
 
       <style>{`
-        .card { position: relative; }
-        .card-header { padding-right: 30px; }
-        .card-link-overlay {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          border-radius: inherit;
-        }
-        .card-external {
-          position: absolute;
-          top: 12px;
-          right: 12px;
-          z-index: 2;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 26px;
-          height: 26px;
-          border-radius: 7px;
-          color: var(--text-muted);
-          font-size: 13px;
-          line-height: 1;
-          text-decoration: none;
-          border: 1px solid transparent;
-          transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease;
-        }
-        .card-external:hover {
-          color: var(--accent);
-          background: var(--bg);
-          border-color: var(--border);
-        }
-        .card-tag-more {
-          color: var(--text-muted);
-        }
         .tool-layout {
           display: grid;
           grid-template-columns: minmax(0, 1fr) 280px;
@@ -328,9 +189,13 @@ export default async function ToolPage({
               }}
             >
               {cats.map((c) => (
-                <span key={c} className="category-tag">
-                  {c}
-                </span>
+                <Link
+                  key={c}
+                  href={`/category/${categorySlug(c)}`}
+                  className="category-tag"
+                >
+                  {categoryLabel(c)}
+                </Link>
               ))}
               <TypeBadge type={entry.type} />
             </div>
@@ -359,7 +224,7 @@ export default async function ToolPage({
                 </div>
                 <div className="grid">
                   {similar.map((e) => (
-                    <SimilarCard key={e.id} entry={e} />
+                    <ToolCard key={e.id} entry={e} />
                   ))}
                 </div>
               </>
@@ -395,17 +260,6 @@ export default async function ToolPage({
             </div>
           </aside>
         </div>
-
-        <footer style={{ marginTop: '48px' }}>
-          <div className="footer-links">
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/affiliate-disclosure">Affiliate Disclosure</a>
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-          </div>
-          <span>Harova — a Ryoka project</span>
-        </footer>
       </div>
     </div>
   )
